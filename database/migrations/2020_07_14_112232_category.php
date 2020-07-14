@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class StockinTable extends Migration
+class Category extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class StockinTable extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('supply_id');
-            $table->string('brand');
-            $table->string('unit');
-            $table->integer('qty');
-            $table->string('type');
-            $table->date('date_expiration');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class StockinTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stockin');
+        Schema::dropIfExists('categories');
     }
 }

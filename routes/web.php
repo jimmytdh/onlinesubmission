@@ -17,5 +17,10 @@ Route::get('/logout','LoginCtrl@logoutUser');
 Route::get('/login','LoginCtrl@index')->middleware('isLogin');
 Route::post('/login/validate','LoginCtrl@validateLogin');
 
-Route::get('/admin','PanelCtrl@index');
+Route::get('/admin','admin\HomeCtrl@index');
+
+//Manage Categories
+Route::get('/admin/category','admin\CategoryCtrl@index');
+Route::post('/admin/category/save','admin\CategoryCtrl@save');
+//End Categories
 

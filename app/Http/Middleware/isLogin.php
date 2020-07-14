@@ -18,7 +18,7 @@ class isLogin
     {
         $isLogin = Session::get('isLogin');
         if($isLogin)
-            return redirect('/');
+            return redirect('/admin');
         return $next($request);
     }
 }

@@ -55,24 +55,12 @@
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item {{ ($menu=='home') ? 'active':'' }}">
-                    <a class="nav-link" href="{{ url('/') }}"><i class="fa fa-home"></i> Home</a>
+                    <a class="nav-link" href="{{ url('/admin') }}"><i class="fa fa-home"></i> Home</a>
                 </li>
-                <li class="nav-item dropdown {{ ($menu=='manage') ? 'active':'' }}">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                        <i class="fa fa-cubes"></i> Manage Categories
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='supply') ? 'active':'' }}" href="{{ url('/supply') }}"><i class="fa fa-archive"></i> List of Supplies</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='request') ? 'active':'' }}" href="{{ url('/request') }}"><i class="fa fa-book"></i> Request
-                            <span class="pull-right">
-                                <span class="badge bg-green">5</span>
-                            </span>
-                        </a>
-{{--                        <div class="dropdown-divider"></div>--}}
-{{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='stockin') ? 'active':'' }}" href="{{ url('/supply/in') }}"><i class="fa fa-download"></i> Stock-In</a>--}}
-{{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='stockout') ? 'active':'' }}" href="{{ url('/supply/out') }}"><i class="fa fa-upload"></i> Stock-Out</a>--}}
-                    </div>
+                <li class="nav-item {{ ($menu=='category') ? 'active':'' }}">
+                    <a class="nav-link" href="{{ url('/admin/category') }}"><i class="fa fa-cubes"></i> Manage Categories</a>
                 </li>
+
                 <li class="nav-item dropdown {{ ($menu=='report') ? 'active':'' }}">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                         <i class="fa fa-book"></i> Report
