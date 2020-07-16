@@ -13,7 +13,7 @@ class CategoryCtrl extends Controller
         $this->middleware('login');
     }
 
-    public function index(){
+    public function index($edit = false, $info = array()){
         $data = Category::select('*');
 
         $data = $data->orderBy('name','asc')
@@ -21,8 +21,16 @@ class CategoryCtrl extends Controller
 
         return view('admin.category',[
             'menu' => 'category',
-            'data' => $data
+            'data' => $data,
+            'edit' => $edit,
+            'info' => $info
         ]);
+    }
+
+    public function edit($id)
+    {
+        $info = Category::find($id);
+        return self::index(true, $info);
     }
 
     public function save(Request $req){
@@ -41,5 +49,20 @@ class CategoryCtrl extends Controller
         if($check)
             return true;
         return false;
+    }
+
+    function update(Request $req, $id)
+    {
+        Category::find($id)
+            ->update([
+                'name' => ucwords($req->categoryName)
+            ]);
+        return redirect()->back()->with('status','update');
+    }
+
+    function delete($id)
+    {
+        Category::find($id)->delete();
+        return redirect('/admin/category')->with('status','update');
     }
 }

@@ -22,5 +22,8 @@ Route::get('/admin','admin\HomeCtrl@index');
 //Manage Categories
 Route::get('/admin/category','admin\CategoryCtrl@index');
 Route::post('/admin/category/save','admin\CategoryCtrl@save');
+Route::get('/admin/category/edit/{id}','admin\CategoryCtrl@edit');
+Route::post('/admin/category/update/{id}','admin\CategoryCtrl@update');
+Route::get('/admin/category/delete/{id}','admin\CategoryCtrl@delete');
 //End Categories
 
