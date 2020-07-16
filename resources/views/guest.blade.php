@@ -1,3 +1,6 @@
+<?php
+    $cat = \App\Category::orderBy('name','asc')->get();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,15 +65,9 @@
                         <i class="fa fa-cubes"></i> Bid Categories
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='supply') ? 'active':'' }}" href="{{ url('/supply') }}"><i class="fa fa-archive"></i> List of Supplies</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='request') ? 'active':'' }}" href="{{ url('/request') }}"><i class="fa fa-book"></i> Request
-                            <span class="pull-right">
-                                <span class="badge bg-green">5</span>
-                            </span>
-                        </a>
-                        {{--                        <div class="dropdown-divider"></div>--}}
-                        {{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='stockin') ? 'active':'' }}" href="{{ url('/supply/in') }}"><i class="fa fa-download"></i> Stock-In</a>--}}
-                        {{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='stockout') ? 'active':'' }}" href="{{ url('/supply/out') }}"><i class="fa fa-upload"></i> Stock-Out</a>--}}
+                        @foreach($cat as $c)
+                        <a class="dropdown-item" href="{{ url('/category/show/'.$c->id) }}"><i class="fa fa-dot-circle-o"></i> {{ $c->name }}</a>
+                        @endforeach
                     </div>
                 </li>
                 <li class="nav-item {{ ($menu=='bdocs') ? 'active':'' }}">

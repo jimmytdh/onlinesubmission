@@ -102,7 +102,12 @@
                                             <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <?php  $count_projects = \App\Http\Controllers\admin\ProjectCtrl::countProjects($row->id); ?>
+                                            <a href="{{ url('/admin/projects/list/'.$row->id) }}" class="">
+                                                {{ $count_projects }}
+                                            </a>
+                                        </td>
                                         <td>{{ date('M d, Y h:i a',strtotime($row->created_at)) }}</td>
                                     </tr>
                                 @endforeach
