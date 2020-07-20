@@ -21,8 +21,7 @@ class Projects extends Migration
             $table->string('ABC');
             $table->string('status');
             $table->dateTime('date_open');
-            $table->dateTime('date_close');
-            $table->string('awarded');
+            $table->string('awarded')->nullable();
             $table->timestamps();
         });
     }

@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $fillable = [
+        'cat_id',
         'name',
         'bac_no',
         'ABC',
         'status',
         'date_open',
-        'date_close',
         'awarded'
     ];
 }

@@ -27,3 +27,10 @@ Route::post('/admin/category/update/{id}','admin\CategoryCtrl@update');
 Route::get('/admin/category/delete/{id}','admin\CategoryCtrl@delete');
 //End Categories
 
+//Mange Projects
+Route::get('/admin/projects/list/{id}','admin\ProjectCtrl@index');
+Route::post('/admin/projects/list/{id}','admin\ProjectCtrl@save');
+Route::get('/admin/projects/edit/{id}','admin\ProjectCtrl@edit');
+Route::post('/admin/projects/update/{id}','admin\ProjectCtrl@update');
+Route::get('/admin/projects/delete/{id}','admin\ProjectCtrl@delete');
+//End Projects
