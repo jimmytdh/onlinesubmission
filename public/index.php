@@ -20,7 +20,7 @@ define('LARAVEL_START', microtime(true));
 | loading any of our classes later on. It feels great to relax.
 |
 */
-$dir = realpath('/wamp64/tdh/covid/');
+$dir = realpath('/wamp64/tdh/bidding/');
 
 require $dir.'/vendor/autoload.php';
 
