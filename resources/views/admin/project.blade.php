@@ -9,7 +9,7 @@
 @endsection
 
 @section('body')
-    <h3 class="text-success title-header">{{ $cat_name }}</h3>
+    <h3 class="text-success title-header">Category: <span class="text-danger">{{ $cat_name }}</span></h3>
     @if(session('status')=='save')
         <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -58,10 +58,13 @@
                                 <input type="text" autocomplete="off" class="form-control" placeholder="BAC No." required name="bac_no">
                             </div>
                             <div class="form-group">
-                                <input type="text" autocomplete="off" class="form-control" placeholder="ABC" required name="ABC">
+                                <input type="number" autocomplete="off" class="form-control" placeholder="ABC" required name="ABC">
                             </div>
                             <div class="form-group">
-                                <input type="date" autocomplete="off" class="form-control" placeholder="BAC No." required name="date_open">
+                                <input type="date" autocomplete="off" class="form-control" required name="date_open">
+                            </div>
+                            <div class="form-group">
+                                <input type="time" autocomplete="off" class="form-control" value="09:00" required name="time_open">
                             </div>
                         </div>
                         <div class="box-footer">
@@ -109,6 +112,9 @@
                                     <input type="date" autocomplete="off" class="form-control" value="{{ date('Y-m-d',strtotime($info->date_open)) }}" required name="date_open">
                                 </div>
                                 <div class="form-group">
+                                    <input type="time" autocomplete="off" class="form-control" value="{{ date('H:i',strtotime($info->date_open)) }}" required name="time_open">
+                                </div>
+                                <div class="form-group">
                                     <input type="text" autocomplete="off" class="form-control" placeholder="Awarded to..." value="{{ $info->awarded }}" name="awarded">
                                 </div>
                             </div>
@@ -151,18 +157,18 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <?php  $count_projects = \App\Http\Controllers\admin\ProjectCtrl::countProjects($row->id); ?>
-                                            <a href="{{ url('/admin/projects/list/'.$row->id) }}" class="">
-                                                {{ $count_projects }}
+                                            <?php  $count_items = \App\Http\Controllers\admin\ItemCtrl::countItems($row->id); ?>
+                                            <a href="{{ url('/admin/items/list/'.$row->id) }}" class="">
+                                                {{ $count_items }}
                                             </a>
                                         </td>
                                         <td>{{ $row->bac_no }}</td>
                                         <td>{{ number_format($row->ABC,2) }}</td>
                                         <td>
                                             @if($row->status=='open')
-                                                <span class="text-success">Open</span> <small class="text-danger"><em>{{ date('M d, Y',strtotime($row->date_open)) }}</em></small>
+                                                <span class="text-success">Open</span> <small class="text-danger"><em>{{ date('M d, Y h:i a',strtotime($row->date_open)) }}</em></small>
                                             @elseif($row->status=='close')
-                                                <span class="text-success">Close</span> <small class="text-danger"><em>{{ date('M d, Y',strtotime($row->date_close)) }}</em></small>
+                                                <strong><span class="text-danger">Close</span></strong>
                                                 <br />
                                                 {{ $row->awarded }}
                                             @endif
@@ -170,7 +176,13 @@
                                     </tr>
                                 @endforeach
                             @else
-
+                            <tr>
+                                <td colspan="5">
+                                    <div class="alert alert-warning text-center">
+                                        No projects available!
+                                    </div>
+                                </td>
+                            </tr>
                             @endif
                         </table>
                     </div>

@@ -56,6 +56,7 @@ class ProjectCtrl extends Controller
 
     function save(Request $req)
     {
+
         $check = Project::where('bac_no',$req->bac_no)->first();
         if($check)
             return redirect()->back()->with('status','duplicate');
@@ -65,21 +66,15 @@ class ProjectCtrl extends Controller
         {
             $status = 'open';
         }
-        $data = array([
-            'cat_id' => $req->cat_id,
-            'name' => $req->project_name,
-            'bac_no' => $req->bac_no,
-            'ABC' => $req->ABC,
-            'date_open' => $req->date_open,
-            'status' => $status
-        ]);
+        $date = "$req->date_open $req->time_open";
+        $date = Carbon::parse($date)->format('Y-m-d H:i:s');
 
         Project::create([
                 'cat_id' => $req->cat_id,
                 'name' => $req->project_name,
                 'bac_no' => $req->bac_no,
                 'ABC' => $req->ABC,
-                'date_open' => $req->date_open,
+                'date_open' => $date,
                 'status' => $status
             ]);
         return redirect()->back()->with('status','save');
@@ -91,13 +86,17 @@ class ProjectCtrl extends Controller
         if($check)
             return redirect()->back()->with('status','duplicate');
 
+        $date = "$req->date_open $req->time_open";
+        $date = Carbon::parse($date)->format('Y-m-d H:i:s');
+
+
         Project::where('id',$id)
             ->update([
                 'cat_id' => $req->cat_id,
                 'name' => $req->project_name,
                 'bac_no' => $req->bac_no,
                 'ABC' => $req->ABC,
-                'date_open' => $req->date_open,
+                'date_open' => $date,
                 'status' => $req->status
             ]);
         return redirect()->back()->with('status','update');
