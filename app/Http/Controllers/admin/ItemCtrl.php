@@ -69,7 +69,7 @@ class ItemCtrl extends Controller
         Item::where('id',$id)
             ->update([
                 'project_id' => $req->project_id,
-                'name' => $req->project_name,
+                'name' => $req->name,
                 'amount' => $req->amount,
                 'qty' => $req->qty
             ]);

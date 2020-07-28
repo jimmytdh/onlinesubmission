@@ -13,6 +13,10 @@
 
 Route::get('/','HomeCtrl@index');
 Route::get('/category/show/{id}','HomeCtrl@projects');
+Route::get('/project/items/{id}','HomeCtrl@items');
+Route::get('/submit/{id}','HomeCtrl@submit');
+Route::post('/submit/{id}','HomeCtrl@submitBid');
+Route::get('/track/{ref_no}','HomeCtrl@track');
 
 Route::get('/logout','LoginCtrl@logoutUser');
 Route::get('/login','LoginCtrl@index')->middleware('isLogin');
@@ -43,3 +47,8 @@ Route::get('/admin/items/edit/{id}','admin\ItemCtrl@edit');
 Route::post('/admin/items/update/{id}','admin\ItemCtrl@update');
 Route::get('/admin/items/delete/{id}','admin\ItemCtrl@delete');
 //End Projects
+
+
+Route::get('/loading',function(){
+    return view('load.loading');
+});

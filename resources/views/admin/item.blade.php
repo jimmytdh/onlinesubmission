@@ -129,7 +129,7 @@
                                 @foreach($data as $row)
                                     <tr>
                                         <td class="text-aqua">
-                                            <a href="{{ url('/admin/projects/edit/'.$row->id) }}">
+                                            <a href="{{ url('/admin/items/edit/'.$row->id) }}">
                                                 <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>

@@ -8,25 +8,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table-sm table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Amount</th>
-                        <th>Qty</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Computer</td>
-                        <td>40,000</td>
-                        <td>40</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="loading_content">
+                    <div class="text-center" style="padding:20px">
+                        <img src="{{ url('images/loading.gif') }}" /><br />
+                        <small class="text-muted">Loading...Please wait...</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
