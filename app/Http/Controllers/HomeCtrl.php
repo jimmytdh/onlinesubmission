@@ -80,7 +80,6 @@ class HomeCtrl extends Controller
             'contact' => $req->contact,
             'financial_file' => $financial_file_name,
             'technical_file' => $technical_file_name,
-            'ABC' => $req->ABC,
             'status' => 'original',
             'remarks' => '',
         ]);
@@ -95,10 +94,25 @@ class HomeCtrl extends Controller
         return redirect('/track/'.$ref_no);
     }
 
+    public function submitTrack(Request $req)
+    {
+        return redirect('/track/'.$req->ref_no);
+    }
+
     public function track($ref_no)
     {
+        $info = Bid::where('ref_no',$ref_no)
+                ->orderBy('created_at','asc')
+                ->first();
+        if(!$info)
+            return redirect('/error')->with('msg','Reference No. '.$ref_no);
+
+        $project = Project::find($info->project_id);
         return view('home.track',[
-            'data' => array()
+            'info' => $info,
+            'menu' => 'track',
+            'ref_no' => $ref_no,
+            'project' => $project
         ]);
     }
 
@@ -115,5 +129,13 @@ class HomeCtrl extends Controller
             $acronym .= $w[0];
         }
         return strtoupper($acronym);
+    }
+
+    static function submission($ref_no)
+    {
+        $data = Bid::where('ref_no',$ref_no)
+                ->orderBy('created_at','asc')
+                ->get();
+        return $data;
     }
 }

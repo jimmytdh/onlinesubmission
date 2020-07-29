@@ -80,24 +80,24 @@
                     <div class="box box-widget widget-user">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
                         <div class="widget-user-header bg-yellow">
-                            <h3 class="widget-user-username">{{ $pr->bac_no }}</h3>
+                            <h3 class="widget-user-username">BAC {{ $pr->bac_no }}</h3>
                             <a class="text-white" href="#item_modal" data-toggle="modal" data-id="{{ $pr->id }}">
                             <h5 class="widget-user-desc"><i class="fa fa-folder-open"></i> {{ \App\Http\Controllers\HomeCtrl::countItems($pr->id) }} Item(s)</h5>
                             </a>
                         </div>
                         <div class="box-footer">
                             <div class="row">
-                                <div class="col-sm-5 border-right">
+                                <div class="col-sm-6 border-right">
                                     <div class="description-block">
                                         <h5 class="description-header">₱ {{ number_format($pr->ABC) }}</h5>
                                         <span class="description-text">ABC</span>
                                     </div>
                                     <!-- /.description-block -->
                                 </div>
-                                <div class="col-sm-7">
+                                <div class="col-sm-6">
                                     <div class="description-block">
-                                        <h5 class="description-header">{{ date('M d, Y h:i A',strtotime($pr->date_open)) }}</h5>
-                                        <span class="description-text">Date Open</span>
+                                        <h5 class="description-header">{{ date('M d, Y',strtotime($pr->date_open)) }}</h5>
+                                        <span class="description-text">{{ date('h:i A',strtotime($pr->date_open)) }}</span>
                                     </div>
                                     <!-- /.description-block -->
                                 </div>

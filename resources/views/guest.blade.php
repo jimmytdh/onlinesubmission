@@ -70,8 +70,8 @@
                         @endforeach
                     </div>
                 </li>
-                <li class="nav-item {{ ($menu=='bdocs') ? 'active':'' }}">
-                    <a class="nav-link" href="{{ url('/') }}"><i class="fa fa-file"></i> Track</a>
+                <li class="nav-item {{ ($menu=='track') ? 'active':'' }}">
+                    <a class="nav-link" href="#track_modal" data-toggle="modal"><i class="fa fa-line-chart"></i> Track</a>
                 </li>
                 <li class="nav-item {{ ($menu=='upcoming') ? 'active':'' }}">
                     <a class="nav-link" href="{{ url('/') }}"><i class="fa fa-archive"></i> Upcoming Bids</a>
@@ -104,7 +104,7 @@
         @yield('body')
     </div>
 </div>
-
+@include('modal.track')
 @yield('modal')
 <!-- /.container -->
 <!-- Footer -->

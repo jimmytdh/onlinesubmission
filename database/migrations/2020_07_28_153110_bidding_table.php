@@ -22,7 +22,6 @@ class BiddingTable extends Migration
             $table->string('contact');
             $table->string('financial_file');
             $table->string('technical_file');
-            $table->integer('ABC');
             $table->string('status')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();

@@ -61,11 +61,6 @@ class ProjectCtrl extends Controller
         if($check)
             return redirect()->back()->with('status','duplicate');
 
-        $status = 'close';
-        if($req->date_open >= Carbon::now())
-        {
-            $status = 'open';
-        }
         $date = "$req->date_open $req->time_open";
         $date = Carbon::parse($date)->format('Y-m-d H:i:s');
 
@@ -75,7 +70,7 @@ class ProjectCtrl extends Controller
                 'bac_no' => $req->bac_no,
                 'ABC' => $req->ABC,
                 'date_open' => $date,
-                'status' => $status
+                'status' => 'close'
             ]);
         return redirect()->back()->with('status','save');
     }

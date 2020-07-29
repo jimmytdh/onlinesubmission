@@ -16,6 +16,7 @@ Route::get('/category/show/{id}','HomeCtrl@projects');
 Route::get('/project/items/{id}','HomeCtrl@items');
 Route::get('/submit/{id}','HomeCtrl@submit');
 Route::post('/submit/{id}','HomeCtrl@submitBid');
+Route::post('/track','HomeCtrl@submitTrack');
 Route::get('/track/{ref_no}','HomeCtrl@track');
 
 Route::get('/logout','LoginCtrl@logoutUser');
@@ -51,4 +52,8 @@ Route::get('/admin/items/delete/{id}','admin\ItemCtrl@delete');
 
 Route::get('/loading',function(){
     return view('load.loading');
+});
+
+Route::get('/error',function(){
+    return view('error',['menu'=>'']);
 });

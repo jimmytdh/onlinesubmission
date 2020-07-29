@@ -14,7 +14,6 @@ class Bid extends Model
         'contact',
         'financial_file',
         'technical_file',
-        'ABC',
         'status',
         'remarks'
     ];
