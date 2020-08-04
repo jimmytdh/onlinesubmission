@@ -15,6 +15,7 @@ class Bid extends Model
         'financial_file',
         'technical_file',
         'status',
+        'final_status',
         'remarks'
     ];
 }

@@ -66,14 +66,9 @@
                         <i class="fa fa-book"></i> Report
                     </a>
                     <div class="dropdown-menu">
-{{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='brgy') ? 'active':'' }}" href="{{ url('/library/brgy') }}"><i class="fa fa-map"></i> Barangay</a>--}}
-{{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='muncity') ? 'active':'' }}" href="{{ url('/library/muncity') }}"><i class="fa fa-map"></i> Municipality/City</a>--}}
-{{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='province') ? 'active':'' }}" href="{{ url('/library/province') }}"><i class="fa fa-map"></i> Province</a>--}}
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='zero') ? 'active':'' }}" href="{{ url('/report/zero') }}"><i class="fa fa-dropbox"></i> Zero Stocks</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='expire') ? 'active':'' }}" href="{{ url('/report/expire') }}"><i class="fa fa-exclamation-triangle"></i> Expired Supplies</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='stockinlogs') ? 'active':'' }}" href="{{ url('/report/logs/in') }}"><i class="fa fa-download"></i> Stock-In Logs</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='stockoutlogs') ? 'active':'' }}" href="{{ url('/report/logs/out') }}"><i class="fa fa-upload"></i> Stock-Out Logs</a>
+                        <a class="dropdown-item {{ (isset($sub) && $sub=='submit') ? 'active':'' }}" href="{{ url('/admin/report/submission') }}"><i class="fa fa-dropbox"></i> Submission</a>
+                        <a class="dropdown-item {{ (isset($sub) && $sub=='logs') ? 'active':'' }}" href="{{ url('/admin/report/logs') }}"><i class="fa fa-archive"></i> Logs</a>
+
                     </div>
                 </li>
 

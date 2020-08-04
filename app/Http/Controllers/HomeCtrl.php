@@ -81,6 +81,7 @@ class HomeCtrl extends Controller
             'financial_file' => $financial_file_name,
             'technical_file' => $technical_file_name,
             'status' => 'original',
+            'final_status' => 'pending',
             'remarks' => '',
         ]);
 

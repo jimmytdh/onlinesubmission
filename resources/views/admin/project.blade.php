@@ -156,9 +156,9 @@
                                                 <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <?php  $count_items = \App\Http\Controllers\admin\ItemCtrl::countItems($row->id); ?>
-                                            <a href="{{ url('/admin/items/list/'.$row->id) }}" class="">
+                                            <a href="{{ url('/admin/items/list/'.$row->id) }}" class="badge badge-success badge-pill" style="padding:7px 25px;">
                                                 {{ $count_items }}
                                             </a>
                                         </td>

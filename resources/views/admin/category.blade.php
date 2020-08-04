@@ -102,9 +102,9 @@
                                             <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <?php  $count_projects = \App\Http\Controllers\admin\ProjectCtrl::countProjects($row->id); ?>
-                                            <a href="{{ url('/admin/projects/list/'.$row->id) }}" class="">
+                                            <a href="{{ url('/admin/projects/list/'.$row->id) }}" class="badge badge-success badge-pill" style="padding:7px 25px;">
                                                 {{ $count_projects }}
                                             </a>
                                         </td>

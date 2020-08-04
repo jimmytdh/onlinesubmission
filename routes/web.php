@@ -25,6 +25,14 @@ Route::post('/login/validate','LoginCtrl@validateLogin');
 
 Route::get('/admin','admin\HomeCtrl@index');
 
+
+//Submission Process
+Route::get('/admin/report/submission','admin\SubmitCtrl@index');
+Route::post('/admin/report/submission','admin\SubmitCtrl@search');
+Route::get('/admin/report/submission/download/{file}/{id}','admin\SubmitCtrl@download');
+//end submission
+
+
 //Manage Categories
 Route::get('/admin/category','admin\CategoryCtrl@index');
 Route::post('/admin/category/save','admin\CategoryCtrl@save');
