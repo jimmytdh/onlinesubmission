@@ -16,7 +16,7 @@ class HomeCtrl extends Controller
 {
     public function index()
     {
-        return view('home.index',[
+        return view('home.index', [
             'menu' => 'home'
         ]);
     }
@@ -24,13 +24,13 @@ class HomeCtrl extends Controller
     public function projects($id)
     {
         $cat = Category::find($id);
-        if(!$cat)
+        if (!$cat)
             return redirect('/');
-        $projects = Project::where('cat_id',$id)
-                ->where('date_open','>=',Carbon::now())
-                ->orderBy('name','asc')->get();
+        $projects = Project::where('cat_id', $id)
+            ->where('date_open', '>=', Carbon::now())
+            ->orderBy('name', 'asc')->get();
 
-        return view('home.project',[
+        return view('home.project', [
             'menu' => 'manage',
             'cat_name' => $cat->name,
             'projects' => $projects
@@ -39,20 +39,20 @@ class HomeCtrl extends Controller
 
     public function items($id)
     {
-        $items = Item::where('project_id',$id)
-                ->orderBy('name','asc')
-                ->get();
-        return view('load.items',[
+        $items = Item::where('project_id', $id)
+            ->orderBy('name', 'asc')
+            ->get();
+        return view('load.items', [
             'items' => $items
         ]);
     }
 
     public function submit($id)
     {
-        $items = Item::where('project_id',$id)
-            ->orderBy('name','asc')
+        $items = Item::where('project_id', $id)
+            ->orderBy('name', 'asc')
             ->get();
-        return view('load.submit',[
+        return view('load.submit', [
             'items' => $items
         ]);
     }
@@ -60,16 +60,16 @@ class HomeCtrl extends Controller
     public function submitBid(Request $req, $id)
     {
         $acronym = self::acronym($req->company);
-        $ref_no = $acronym.date('Ymd').$id;
+        $ref_no = $acronym . date('Ymd') . $id;
 
         $financial_file = $req->file('financial_file');
         $extension = $financial_file->getClientOriginalExtension();
-        $financial_file_name = $ref_no."_financial.".$extension;
+        $financial_file_name = $ref_no . "_financial." . $extension;
         Storage::disk('upload')->put($financial_file_name, File::get($financial_file));
 
         $technical_file = $req->file('technical_file');
         $extension = $technical_file->getClientOriginalExtension();
-        $technical_file_name = $ref_no."_technical.".$extension;
+        $technical_file_name = $ref_no . "_technical." . $extension;
         Storage::disk('upload')->put($technical_file_name, File::get($technical_file));
 
         $bid = Bid::create([
@@ -85,14 +85,46 @@ class HomeCtrl extends Controller
             'remarks' => '',
         ]);
 
-        foreach($req->items as $i){
+        foreach ($req->items as $i) {
             BidItem::create([
                 'bid_id' => $bid->id,
                 'item_id' => $i
             ]);
         }
 
-        return redirect('/track/'.$ref_no);
+        return redirect('/track/' . $ref_no);
+    }
+
+    function modify(Request $req)
+    {
+        $bid = Bid::find($req->bid_id);
+        $dt = date('mdHis');
+
+        $financial_file = $req->file('financial_file');
+        $extension = $financial_file->getClientOriginalExtension();
+        $financial_file_name = $bid->ref_no . "_financial_modified$dt." . $extension;
+        Storage::disk('upload')->put($financial_file_name, File::get($financial_file));
+
+        $technical_file = $req->file('technical_file');
+        $extension = $technical_file->getClientOriginalExtension();
+        $technical_file_name = $bid->ref_no . "_technical_modified$dt." . $extension;
+        Storage::disk('upload')->put($technical_file_name, File::get($technical_file));
+
+        $bid = Bid::create([
+            'project_id' => $bid->project_id,
+            'ref_no' => $bid->ref_no,
+            'company' => $bid->company,
+            'bidder' => $bid->bidder,
+            'contact' => $bid->contact,
+            'financial_file' => $financial_file_name,
+            'technical_file' => $technical_file_name,
+            'status' => 'modified',
+            'final_status' => 'pending',
+            'remarks' => '',
+        ]);
+
+
+        return redirect('/track/' . $bid->ref_no);
     }
 
     public function submitTrack(Request $req)

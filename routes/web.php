@@ -16,6 +16,7 @@ Route::get('/category/show/{id}','HomeCtrl@projects');
 Route::get('/project/items/{id}','HomeCtrl@items');
 Route::get('/submit/{id}','HomeCtrl@submit');
 Route::post('/submit/{id}','HomeCtrl@submitBid');
+Route::post('/modify','HomeCtrl@modify');
 Route::post('/track','HomeCtrl@submitTrack');
 Route::get('/track/{ref_no}','HomeCtrl@track');
 
@@ -29,6 +30,7 @@ Route::get('/admin','admin\HomeCtrl@index');
 //Submission Process
 Route::get('/admin/report/submission','admin\SubmitCtrl@index');
 Route::post('/admin/report/submission','admin\SubmitCtrl@search');
+Route::post('/admin/report/submission/remarks','admin\SubmitCtrl@updateRemarks');
 Route::get('/admin/report/submission/download/{file}/{id}','admin\SubmitCtrl@download');
 //end submission
 
