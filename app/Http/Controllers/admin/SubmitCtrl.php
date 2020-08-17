@@ -54,8 +54,7 @@ class SubmitCtrl extends Controller
         }else{
             $download = $bid->technical_file;
         }
-        echo $download;
-
+        ob_end_clean();
         return Storage::disk('upload')->download($download);
     }
 
