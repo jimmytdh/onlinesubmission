@@ -171,4 +171,11 @@ class HomeCtrl extends Controller
                 ->get();
         return $data;
     }
+
+    function upcoming()
+    {
+        return view('home.upcoming',[
+            'menu' => 'upcoming'
+        ]);
+    }
 }

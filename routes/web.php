@@ -19,6 +19,7 @@ Route::post('/submit/{id}','HomeCtrl@submitBid');
 Route::post('/modify','HomeCtrl@modify');
 Route::post('/track','HomeCtrl@submitTrack');
 Route::get('/track/{ref_no}','HomeCtrl@track');
+Route::get('/upcoming','HomeCtrl@upcoming');
 
 Route::get('/logout','LoginCtrl@logoutUser');
 Route::get('/login','LoginCtrl@index')->middleware('isLogin');
