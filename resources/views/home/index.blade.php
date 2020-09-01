@@ -2,6 +2,9 @@
 
 @section('css')
     <link href="{{ url('/plugins/fullcalendar/lib/main.css') }}" rel="stylesheet" />
+    <style>
+
+    </style>
 @endsection
 
 @section('body')
@@ -12,19 +15,19 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        @for($i=2;$i<=78;$i++)
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ $i }}"></li>
+                        @endfor
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block" src="{{ url('/slides/1.jpg') }}" alt="First slide">
+                            <img class="d-block" src="{{ url('/slides/Slide1.jpg') }}" alt="" style="width: 100%;">
                         </div>
-                        <div class="carousel-item">
-                            <img class="d-block" src="{{ url('/slides/2.jpg') }}" alt="Second slide">
+                        @for($i=1;$i<=78;$i++)
+                        <div class="carousel-item" style="background-size: cover;">
+                            <img src="{{ url('/slides/Slide'.$i.'.jpg') }}" alt="" style="width: 100%;">
                         </div>
-                        <div class="carousel-item">
-                            <img class="d-block" src="{{ url('/slides/3.jpg') }}" alt="Third slide">
-                        </div>
+                        @endfor
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
