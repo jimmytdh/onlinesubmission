@@ -21,11 +21,11 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block" src="{{ url('/slides/Slide1.jpg') }}" alt="" style="width: 100%;">
+                            <img class="d-block" src="{{ url('/slides/Slide1.JPG') }}" alt="" style="width: 100%;">
                         </div>
                         @for($i=1;$i<=78;$i++)
                         <div class="carousel-item" style="background-size: cover;">
-                            <img src="{{ url('/slides/Slide'.$i.'.jpg') }}" alt="" style="width: 100%;">
+                            <img src="{{ url('/slides/Slide'.$i.'.JPG') }}" alt="" style="width: 100%;">
                         </div>
                         @endfor
                     </div>
