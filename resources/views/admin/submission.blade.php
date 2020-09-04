@@ -42,6 +42,7 @@
                             <th>Company</th>
                             <th>Representative</th>
                             <th>Date Submitted</th>
+                            <th>Items</th>
                             <th class="text-center">Financial File</th>
                             <th class="text-center">Technical File</th>
                             <th class="text-center">Status</th>
@@ -68,6 +69,7 @@
                                     <br>
                                     <small class="text-danger">{{ date('h:i A',strtotime($row->created_at)) }}</small>
                                 </td>
+                                <td></td>
                                 <td class="text-center">
                                     <a href="{{ url('/admin/report/submission/download/financial/'.$row->id) }}">
                                     <span class="badge badge-pill badge-info p-2">
