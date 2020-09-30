@@ -21,6 +21,14 @@ class ProjectCtrl extends Controller
         return $count;
     }
 
+    static function getProjectsByCatID($cat_id)
+    {
+        $projects = Project::where('cat_id',$cat_id)
+                        ->orderBy('name','asc')
+                        ->get();
+        return $projects;
+    }
+
     function index($id, $info = array(), $edit = false)
     {
         if($id>0)

@@ -27,7 +27,8 @@ class HomeCtrl extends Controller
         if (!$cat)
             return redirect('/');
         $projects = Project::where('cat_id', $id)
-            ->where('date_open', '>=', Carbon::now())
+            ->where('date_open', '<=', Carbon::now())
+            ->where('status','open')
             ->orderBy('name', 'asc')->get();
 
         return view('home.project', [
@@ -40,7 +41,7 @@ class HomeCtrl extends Controller
     public function items($id)
     {
         $items = Item::where('project_id', $id)
-            ->orderBy('name', 'asc')
+            ->orderBy('item_no', 'asc')
             ->get();
         return view('load.items', [
             'items' => $items
@@ -50,7 +51,7 @@ class HomeCtrl extends Controller
     public function submit($id)
     {
         $items = Item::where('project_id', $id)
-            ->orderBy('name', 'asc')
+            ->orderBy('item_no', 'asc')
             ->get();
         return view('load.submit', [
             'items' => $items

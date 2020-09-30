@@ -50,6 +50,9 @@
                         </thead>
                         <?php $holder = '';?>
                         @foreach($info as $row)
+                            <?php
+                                $itemsBidded = \App\Http\Controllers\admin\ItemCtrl::getItemByBid($row->id);
+                            ?>
                             <tr>
                                 <td class="box-title">
                                     @if($holder!=$row->ref_no)
@@ -69,7 +72,14 @@
                                     <br>
                                     <small class="text-danger">{{ date('h:i A',strtotime($row->created_at)) }}</small>
                                 </td>
-                                <td></td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        @foreach($itemsBidded as $i)
+                                        <li>{{ $i->item_no }}. {{ $i->name }}</li>
+                                        @endforeach
+                                    </ul>
+
+                                </td>
                                 <td class="text-center">
                                     <a href="{{ url('/admin/report/submission/download/financial/'.$row->id) }}">
                                     <span class="badge badge-pill badge-info p-2">

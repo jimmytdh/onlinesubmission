@@ -81,7 +81,7 @@
                         <!-- Add the bg color to the header using any of the bg-* classes -->
                         <div class="widget-user-header bg-yellow">
                             <h3 class="widget-user-username">BAC {{ $pr->bac_no }}</h3>
-                            <a class="text-white" href="#item_modal" data-toggle="modal" data-id="{{ $pr->id }}">
+                            <a class="text-white" href="#item_modal" data-toggle="modal" data-id="{{ $pr->id }}" data-backdrop="static">
                             <h5 class="widget-user-desc"><i class="fa fa-folder-open"></i> {{ \App\Http\Controllers\HomeCtrl::countItems($pr->id) }} Item(s)</h5>
                             </a>
                         </div>
@@ -108,7 +108,7 @@
                         <div class="box-footer">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="btn btn-default btn-block btn-submit" data-id="{{ $pr->id }}" data-target="#submit_modal" data-toggle="modal">
+                                    <button class="btn btn-default btn-block btn-submit" data-backdrop="static" data-id="{{ $pr->id }}" data-target="#submit_modal" data-toggle="modal">
                                         <i class="fa fa-folder-open"></i> Submit Bid
                                     </button>
                                 </div>
@@ -145,7 +145,6 @@
         $("a[href='#item_modal']").on('click',function(){
             var id = $(this).data('id');
             var url = "{{ url('/project/items/') }}/"+id;
-            console.log(url);
             setTimeout(function(){
                 $('.loading_content').load(url);
             },500);
@@ -155,9 +154,9 @@
         $(".btn-submit").on('click',function(){
             var id = $(this).data('id');
             var url = "{{ url('/submit/') }}/"+id;
-            console.log(url);
             setTimeout(function(){
                 $('.loading_content').load(url,function(){
+                    $('input[type="text"]').attr('autocomplete','off');
                     $(".custom-file-input").on("change", function() {
                         var fileName = $(this).val().split("\\").pop();
                         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);

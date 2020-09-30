@@ -74,7 +74,7 @@
                     <a class="nav-link" href="#track_modal" data-toggle="modal"><i class="fa fa-line-chart"></i> Track</a>
                 </li>
                 <li class="nav-item {{ ($menu=='upcoming') ? 'active':'' }}">
-                    <a class="nav-link" href="{{ url('/upcoming') }}"><i class="fa fa-archive"></i> Upcoming Events</a>
+                    <a class="nav-link" href="{{ url('/upcoming') }}"><i class="fa fa-calendar"></i> Calendar</a>
                 </li>
                 <li class="nav-item {{ ($menu=='bdocs') ? 'active':'' }}">
                     <a class="nav-link" href="{{ url('/') }}"><i class="fa fa-book"></i> BDocs</a>

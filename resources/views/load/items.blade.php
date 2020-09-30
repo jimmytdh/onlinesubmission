@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>Item</th>
+        <th>Unit</th>
         <th class="text-right">Amount</th>
         <th class="text-center">Qty</th>
     </tr>
@@ -10,7 +11,8 @@
     @if(count($items)>0)
         @foreach($items as $row)
         <tr>
-            <td>{{ $row->name }}</td>
+            <td>{{ $row->item_no }}. {{ $row->name }}</td>
+            <td>{{ $row->unit }}</td>
             <td class="text-right">{{ number_format($row->amount,2) }}</td>
             <td class="text-center">{{ number_format($row->qty) }}</td>
         </tr>

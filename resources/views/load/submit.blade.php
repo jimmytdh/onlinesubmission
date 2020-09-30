@@ -28,18 +28,14 @@
     <label>Select Items:</label>
     <div class="row">
         @foreach($items as $i)
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <label>
-                <input type="checkbox" name="items[]" value="{{ $i->id }}"> {{ $i->name }}
+                <input type="checkbox" name="items[]" value="{{ $i->id }}"> {{ $i->item_no }}. {{ $i->name }}
             </label>
         </div>
         @endforeach
     </div>
 </div>
-<div class="form-group">
-    <label>ABC</label>
-    <input type="number" class="form-control" name="ABC" required />
-</div>
 <div class="alert alert-danger" style="font-size: 0.8em">
-    <em>NOTE: Make sure to put password on the archived documents.</em>
+    <em>NOTE: Make sure to put password on uploaded documents.</em>
 </div>

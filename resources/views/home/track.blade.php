@@ -66,7 +66,7 @@
                         </tr>
                     @endforeach
 
-                    @if($project->status=='open' && $project->date_open >= \Carbon\Carbon::now())
+                    @if($project->status=='open' && $project->date_open <= \Carbon\Carbon::now())
                     <tr>
                         <td colspan="2">
                             <button class="btn btn-success btn-block btn-lg btn-modify no-print" data-target="#modify_modal" data-toggle="modal" data-id="{{ $info->id }}">
@@ -108,6 +108,13 @@
             </div>
             <!-- /.row -->
         </div>
+        <hr />
+        <div class="pull-right no-print">
+            <button class="btn btn-default" onClick="window.print()">
+                <i class="fa fa-print"></i> Print
+            </button>
+        </div>
+        <div class="clearfix"></div>
     </div>
 @endsection
 

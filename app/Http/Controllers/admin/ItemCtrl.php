@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\BidItem;
 use App\Item;
 use App\Project;
 use Illuminate\Http\Request;
@@ -20,6 +21,12 @@ class ItemCtrl extends Controller
         return $count;
     }
 
+    static function getItemsByProjectID($project_id)
+    {
+        $items = Item::where('project_id',$project_id)->orderBy('item_no','asc')->get();
+        return $items;
+    }
+
     function index($id, $info = array(), $edit = false)
     {
         if($id>0)
@@ -30,7 +37,7 @@ class ItemCtrl extends Controller
         }
 
 
-        $data = $data->orderBy('name','asc')
+        $data = $data->orderBy('item_no','asc')
             ->paginate(30);
         $proj = Project::find($id);
 
@@ -57,7 +64,9 @@ class ItemCtrl extends Controller
     {
         Item::create([
             'project_id' => $req->project_id,
+            'item_no' => $req->item_no,
             'name' => $req->name,
+            'unit' => $req->unit,
             'amount' => $req->amount,
             'qty' => $req->qty
         ]);
@@ -69,7 +78,9 @@ class ItemCtrl extends Controller
         Item::where('id',$id)
             ->update([
                 'project_id' => $req->project_id,
+                'item_no' => $req->item_no,
                 'name' => $req->name,
+                'unit' => $req->unit,
                 'amount' => $req->amount,
                 'qty' => $req->qty
             ]);
@@ -82,5 +93,14 @@ class ItemCtrl extends Controller
         $project_id = $item->project_id;
         $item->delete();
         return redirect('/admin/items/list/'.$project_id)->with('status','delete');
+    }
+
+    static function getItemByBid($bid_id)
+    {
+        $items = BidItem::select('items.*')
+                    ->leftJoin('items','items.id','=','bid_items.item_id')
+                    ->where('bid_items.bid_id',$bid_id)
+                    ->get();
+        return $items;
     }
 }

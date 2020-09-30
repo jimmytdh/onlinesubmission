@@ -37,8 +37,8 @@
     <div class="row">
         <div class="col-md-3">
             @if(!$edit)
-                <div class="box box-info">
-                    <div class="box-header">
+                <div class="box box-info bg-info">
+                    <div class="box-header text-white font-weight-bold">
                         <i class="fa fa-plus"></i> Add Item
                     </div>
                     <form action="{{ url('admin/items/list/'.$id) }}" method="post">
@@ -52,7 +52,13 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <input type="number" min="1" autocomplete="off" class="form-control" placeholder="Item No." required name="item_no">
+                            </div>
+                            <div class="form-group">
                                 <input type="text" autocomplete="off" class="form-control" placeholder="Item Name" required name="name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" autocomplete="off" class="form-control" placeholder="Unit" required name="unit">
                             </div>
                             <div class="form-group">
                                 <input type="number" autocomplete="off" class="form-control" placeholder="Amount" required name="amount">
@@ -61,8 +67,8 @@
                                 <input type="number" autocomplete="off" class="form-control" placeholder="QTY" required name="qty">
                             </div>
                         </div>
-                        <div class="box-footer">
-                            <button class="btn btn-success btn-block" type="submit">
+                        <div class="box-footer bg-info">
+                            <button class="btn btn-warning btn-block" type="submit">
                                 <i class="fa fa-check"></i> Save
                             </button>
                             <a href="{{ url('/admin/projects/list/'.$proj->cat_id) }}" class="btn btn-block btn-default">
@@ -72,8 +78,8 @@
                     </form>
                 </div>
             @else
-                <div class="box box-info">
-                    <div class="box-header">
+                <div class="box box-warning bg-warning">
+                    <div class="box-header font-weight-bold">
                         <i class="fa fa-plus"></i> Update Item
                     </div>
                     <form action="{{ url('/admin/items/update/'.$info->id) }}" method="post">
@@ -88,7 +94,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <input type="number" min="1" value="{{ $info->item_no }}" autocomplete="off" class="form-control" placeholder="Item No." required name="item_no">
+                                </div>
+                                <div class="form-group">
                                     <input type="text" autocomplete="off" class="form-control" placeholder="Item Name" value="{{ $info->name }}" required name="name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" autocomplete="off" value="{{ $info->unit }}" class="form-control" placeholder="Unit" required name="unit">
                                 </div>
                                 <div class="form-group">
                                     <input type="number" autocomplete="off" class="form-control" placeholder="Amount" value="{{ $info->amount }}" required name="amount">
@@ -106,7 +118,7 @@
                                 <i class="fa fa-trash"></i> Delete
                             </a>
                             <a href="{{ url('/admin/items/list/'.$id) }}" class="btn btn-block btn-default">
-                                <i class="fa fa-arrow-left"></i> Back
+                                <i class="fa fa-arrow-left"></i> Cancel
                             </a>
                         </div>
                     </form>
@@ -121,6 +133,7 @@
                             <thead class="bg-dark text-white">
                             <tr>
                                 <th>Item</th>
+                                <th>Unit</th>
                                 <th>Amount</th>
                                 <th>Qty</th>
                             </tr>
@@ -130,9 +143,10 @@
                                     <tr>
                                         <td class="text-aqua">
                                             <a href="{{ url('/admin/items/edit/'.$row->id) }}">
-                                                <strong>{{ $row->name }}</strong>
+                                                <strong>{{ $row->item_no }}. {{ $row->name }}</strong>
                                             </a>
                                         </td>
+                                        <td>{{ $row->unit }}</td>
                                         <td>{{ number_format($row->amount,2) }}</td>
                                         <td>{{ $row->qty }}</td>
                                     </tr>

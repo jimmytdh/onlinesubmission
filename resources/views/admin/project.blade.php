@@ -37,8 +37,8 @@
     <div class="row">
         <div class="col-md-3">
             @if(!$edit)
-                <div class="box box-info">
-                    <div class="box-header">
+                <div class="box box-info bg-info">
+                    <div class="box-header text-white font-weight-bold">
                         <i class="fa fa-plus"></i> Add Project
                     </div>
                     <form action="{{ url('admin/projects/list/'.$id) }}" method="post">
@@ -67,8 +67,8 @@
                                 <input type="time" autocomplete="off" class="form-control" value="09:00" required name="time_open">
                             </div>
                         </div>
-                        <div class="box-footer">
-                            <button class="btn btn-success btn-block" type="submit">
+                        <div class="box-footer bg-info">
+                            <button class="btn btn-warning btn-block" type="submit">
                                 <i class="fa fa-check"></i> Save
                             </button>
                             <a href="{{ url('/admin/category') }}" class="btn btn-block btn-default">
@@ -78,9 +78,9 @@
                     </form>
                 </div>
             @else
-                <div class="box box-info">
-                    <div class="box-header">
-                        <i class="fa fa-plus"></i> Update Category
+                <div class="box box-warning bg-warning">
+                    <div class="box-header font-weight-bold">
+                        <i class="fa fa-plus"></i> Update Project
                     </div>
                     <form action="{{ url('/admin/projects/update/'.$info->id) }}" method="post">
                         {{ csrf_field() }}
@@ -127,7 +127,7 @@
                                 <i class="fa fa-trash"></i> Delete
                             </a>
                             <a href="{{ url('/admin/projects/list/'.$id) }}" class="btn btn-block btn-default">
-                                <i class="fa fa-arrow-left"></i> Back
+                                <i class="fa fa-arrow-left"></i> Cancel
                             </a>
                         </div>
                     </form>
@@ -142,10 +142,10 @@
                             <thead class="bg-dark text-white">
                             <tr>
                                 <th>Project Name</th>
-                                <th>Items</th>
                                 <th>BAC No.</th>
                                 <th>ABC</th>
                                 <th>Status</th>
+                                <th>Items</th>
                             </tr>
                             </thead>
                             @if(count($data)>0)
@@ -156,12 +156,7 @@
                                                 <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>
-                                        <td class="text-center">
-                                            <?php  $count_items = \App\Http\Controllers\admin\ItemCtrl::countItems($row->id); ?>
-                                            <a href="{{ url('/admin/items/list/'.$row->id) }}" class="badge badge-success badge-pill" style="padding:7px 25px;">
-                                                {{ $count_items }}
-                                            </a>
-                                        </td>
+
                                         <td>{{ $row->bac_no }}</td>
                                         <td>{{ number_format($row->ABC,2) }}</td>
                                         <td>
@@ -172,6 +167,22 @@
                                                 <br />
                                                 {{ $row->awarded }}
                                             @endif
+                                        </td>
+                                        <td>
+                                            <?php
+                                            $count_items = \App\Http\Controllers\admin\ItemCtrl::countItems($row->id);
+                                            $items = \App\Http\Controllers\admin\ItemCtrl::getItemsByProjectID($row->id);
+                                            ?>
+                                            <ul class="list-unstyled">
+                                                @foreach($items as $i)
+                                                    <li>{{ $i->item_no }}. {{ $i->name }}</li>
+                                                @endforeach
+                                                <li>
+                                                    <a href="{{ url('/admin/items/list/'.$row->id) }}" style="border-bottom: 1px dotted #000;">
+                                                        Add New
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </td>
                                     </tr>
                                 @endforeach

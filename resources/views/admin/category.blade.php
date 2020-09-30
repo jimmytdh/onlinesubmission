@@ -35,10 +35,10 @@
     </div>
     @endif
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             @if(!$edit)
-            <div class="box box-info">
-                <div class="box-header">
+            <div class="box box-info bg-info">
+                <div class="box-header text-white font-weight-bold">
                     <i class="fa fa-plus"></i> Add Category
                 </div>
                 <form action="{{ url('/admin/category/save') }}" method="post">
@@ -48,16 +48,16 @@
                         <input type="text" autocomplete="off" class="form-control" placeholder="Category Name..." required name="categoryName">
                     </div>
                 </div>
-                <div class="box-footer">
-                    <button class="btn btn-success btn-block" type="submit">
+                <div class="box-footer bg-info">
+                    <button class="btn btn-warning btn-block" type="submit">
                         <i class="fa fa-check"></i> Save
                     </button>
                 </div>
                 </form>
             </div>
             @else
-            <div class="box box-info">
-                <div class="box-header">
+            <div class="box box-warning bg-warning">
+                <div class="box-header font-weight-bold">
                     <i class="fa fa-plus"></i> Update Category
                 </div>
                 <form action="{{ url('/admin/category/update/'.$info->id) }}" method="post">
@@ -75,14 +75,14 @@
                             <i class="fa fa-trash"></i> Delete
                         </a>
                         <a href="{{ url('/admin/category') }}" class="btn btn-block btn-default">
-                            <i class="fa fa-arrow-left"></i> Back
+                            <i class="fa fa-arrow-left"></i> Cancel
                         </a>
                     </div>
                 </form>
             </div>
             @endif
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="box box-info">
                 <div class="box-body">
                     <div class="table-responsive">
@@ -90,7 +90,7 @@
                             <thead class="bg-dark text-white">
                             <tr>
                                 <th>Category Name</th>
-                                <th>Projects</th>
+                                <th>BAC No.</th>
                                 <th>Date Added</th>
                             </tr>
                             </thead>
@@ -102,11 +102,21 @@
                                             <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>
-                                        <td class="text-center">
-                                            <?php  $count_projects = \App\Http\Controllers\admin\ProjectCtrl::countProjects($row->id); ?>
-                                            <a href="{{ url('/admin/projects/list/'.$row->id) }}" class="badge badge-success badge-pill" style="padding:7px 25px;">
-                                                {{ $count_projects }}
-                                            </a>
+                                        <td>
+                                            <?php
+                                                $count_projects = \App\Http\Controllers\admin\ProjectCtrl::countProjects($row->id);
+                                                $projects = \App\Http\Controllers\admin\ProjectCtrl::getProjectsByCatID($row->id);
+                                            ?>
+                                            <ul>
+                                                @foreach($projects as $p)
+                                                    <li>{{ $p->bac_no }}</li>
+                                                @endforeach
+                                                <li>
+                                                    <a href="{{ url('/admin/projects/list/'.$row->id) }}" style="border-bottom: 1px dotted #000;">
+                                                        Add New
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </td>
                                         <td>{{ date('M d, Y h:i a',strtotime($row->created_at)) }}</td>
                                     </tr>
