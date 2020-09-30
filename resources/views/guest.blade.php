@@ -12,7 +12,7 @@
     <meta name="author" content="Jimmy Parker">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ url('/images') }}/favicon.png" sizes="16x16" type="image/png">
-    <title>TDH Online Bid Submission</title>
+    <title>CSMC Online Bid Submission</title>
     <!-- Custom styles for this template -->
     <link href="{{ url('/css') }}/bootstrap.css" rel="stylesheet">
     <link href="{{ url('/css') }}/font-awesome.css" rel="stylesheet">

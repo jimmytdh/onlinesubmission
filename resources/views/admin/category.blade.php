@@ -90,7 +90,7 @@
                             <thead class="bg-dark text-white">
                             <tr>
                                 <th>Category Name</th>
-                                <th>BAC No.</th>
+                                <th>Projects (BAC No.)</th>
                                 <th>Date Added</th>
                             </tr>
                             </thead>

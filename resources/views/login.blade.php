@@ -31,7 +31,7 @@
                     </div>
 
                     <h5 class="card-title text-center">
-                        <span class="font-weight-bold">Online Bid Submission</span><br>Talisay District Hospital
+                        <span class="font-weight-bold">Online Bid Submission</span><br>Cebu South Medical Center
                         <br>
                         <small class="text-muted">
                             Sign in to start your session
