@@ -7,6 +7,7 @@ use App\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class ProjectCtrl extends Controller
 {
@@ -78,8 +79,9 @@ class ProjectCtrl extends Controller
                 'bac_no' => $req->bac_no,
                 'ABC' => $req->ABC,
                 'date_open' => $date,
-                'status' => 'close'
+                'status' => 'open'
             ]);
+        self::saveLogs("<add>created</add> project with BAC No. <b>$req->bac_no</b>");
         return redirect()->back()->with('status','save');
     }
 
@@ -102,14 +104,22 @@ class ProjectCtrl extends Controller
                 'date_open' => $date,
                 'status' => $req->status
             ]);
+        self::saveLogs("<upd>updated</upd> project with BAC No. <b>$req->bac_no</b> and status to <b>$req->status</b>");
         return redirect()->back()->with('status','update');
     }
 
     function delete($id)
     {
         $proj = Project::find($id);
+        self::saveLogs("<rm>deleted</rm> project with BAC No. <b>$proj->bac_no</b>");
         $cat_id = $proj->cat_id;
         $proj->delete();
         return redirect('/admin/projects/list/'.$cat_id)->with('status','delete');
+    }
+
+    function saveLogs($activity)
+    {
+        $user = Session::get('user');
+        LogCtrl::saveLogs("<b>$user->fname $user->lname</b> $activity.");
     }
 }

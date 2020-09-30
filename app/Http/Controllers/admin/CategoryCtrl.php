@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class CategoryCtrl extends Controller
 {
@@ -40,6 +41,7 @@ class CategoryCtrl extends Controller
         Category::create([
             'name' => ucwords($req->categoryName)
         ]);
+        self::saveLogs(" <add>created</add> category <b>$req->categoryName</b>");
         return redirect()->back()->with('status','save');
     }
 
@@ -57,12 +59,21 @@ class CategoryCtrl extends Controller
             ->update([
                 'name' => ucwords($req->categoryName)
             ]);
+        self::saveLogs(" <upd>updated</upd> category <b>$req->categoryName</b>");
         return redirect()->back()->with('status','update');
     }
 
     function delete($id)
     {
-        Category::find($id)->delete();
+        $cat = Category::find($id);
+        self::saveLogs(" <rm>deleted</rm> category <b>$cat->name</b>");
+        $cat->delete();
         return redirect('/admin/category')->with('status','update');
+    }
+
+    function saveLogs($activity)
+    {
+        $user = Session::get('user');
+        LogCtrl::saveLogs("<b>$user->fname $user->lname</b> $activity.");
     }
 }

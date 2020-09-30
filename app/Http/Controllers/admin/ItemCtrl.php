@@ -7,6 +7,7 @@ use App\Item;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class ItemCtrl extends Controller
 {
@@ -70,6 +71,7 @@ class ItemCtrl extends Controller
             'amount' => $req->amount,
             'qty' => $req->qty
         ]);
+        self::saveLogs("<add>added</add> item <b>$req->item_no. $req->name, qty $req->qty, amount $req->amount</b>");
         return redirect()->back()->with('status','save');
     }
 
@@ -84,12 +86,14 @@ class ItemCtrl extends Controller
                 'amount' => $req->amount,
                 'qty' => $req->qty
             ]);
+        self::saveLogs("<upd>updated</upd> item <b>$req->item_no. $req->name, qty $req->qty, amount $req->amount</b>");
         return redirect()->back()->with('status','update');
     }
 
     function delete($id)
     {
         $item = Item::find($id);
+        self::saveLogs("<rm>deleted</rm> item <b>$item->item_no. $item->name</b>");
         $project_id = $item->project_id;
         $item->delete();
         return redirect('/admin/items/list/'.$project_id)->with('status','delete');
@@ -102,5 +106,11 @@ class ItemCtrl extends Controller
                     ->where('bid_items.bid_id',$bid_id)
                     ->get();
         return $items;
+    }
+
+    function saveLogs($activity)
+    {
+        $user = Session::get('user');
+        LogCtrl::saveLogs("<b>$user->fname $user->lname</b> $activity.");
     }
 }

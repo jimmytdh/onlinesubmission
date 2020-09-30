@@ -26,6 +26,7 @@ Route::get('/login','LoginCtrl@index')->middleware('isLogin');
 Route::post('/login/validate','LoginCtrl@validateLogin');
 
 Route::get('/admin','admin\HomeCtrl@index');
+Route::get('/admin/chart','admin\HomeCtrl@chart');
 
 
 //Submission Process
@@ -33,6 +34,8 @@ Route::get('/admin/report/submission','admin\SubmitCtrl@index');
 Route::post('/admin/report/submission','admin\SubmitCtrl@search');
 Route::post('/admin/report/submission/remarks','admin\SubmitCtrl@updateRemarks');
 Route::get('/admin/report/submission/download/{file}/{id}','admin\SubmitCtrl@download');
+
+Route::get('/admin/report/logs','admin\LogCtrl@index');
 //end submission
 
 

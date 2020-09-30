@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bid;
 use App\BidItem;
 use App\Category;
+use App\Http\Controllers\admin\LogCtrl;
 use App\Item;
 use App\Project;
 use Carbon\Carbon;
@@ -92,7 +93,8 @@ class HomeCtrl extends Controller
                 'item_id' => $i
             ]);
         }
-
+        $bac_no = Project::find($id)->bac_no;
+        LogCtrl::saveLogs("<b>$req->bidder</b> of <add>$req->company</add> submitted a bid for BAC No. <b>$bac_no</b> with <b>Ref. No. $ref_no</b>.");
         return redirect('/track/' . $ref_no);
     }
 
@@ -123,8 +125,8 @@ class HomeCtrl extends Controller
             'final_status' => 'pending',
             'remarks' => '',
         ]);
-
-
+        $bac_no = Project::find($bid->project_id)->bac_no;
+        LogCtrl::saveLogs("<b>$bid->bidder</b> of <add>$bid->company</add> submitted a <upd>modified documents</upd> of <b>Ref. No. $bid->ref_no</b>.");
         return redirect('/track/' . $bid->ref_no);
     }
 

@@ -55,6 +55,7 @@ class SubmitCtrl extends Controller
             $download = $bid->technical_file;
         }
         ob_end_clean();
+        self::saveLogs("downloaded <add>$file file</add> of Ref. No. <b>$bid->ref_no</b>");
         return Storage::disk('upload')->download($download);
     }
 
@@ -65,7 +66,14 @@ class SubmitCtrl extends Controller
                 'remarks' => $req->remarks,
                 'final_status' => $req->status
             ]);
-
+        $bid = Bid::find($req->bid_id);
+        self::saveLogs("<upd>updated</upd> remarks and status <add>($req->status)</add> of Ref. No. <b>$bid->ref_no</b>");
         return redirect('/admin/report/submission')->with('status','updated');
+    }
+
+    function saveLogs($activity)
+    {
+        $user = Session::get('user');
+        LogCtrl::saveLogs("<b>$user->fname $user->lname</b> $activity.");
     }
 }

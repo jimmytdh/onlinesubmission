@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\admin\LogCtrl;
 use App\User;
 use App\UserPriv;
 use Illuminate\Http\Request;
@@ -38,6 +39,8 @@ class LoginCtrl extends Controller
             Session::put('user',$user);
             Session::put('level',$user_priv->level);
             Session::put('isLogin',true);
+
+            LogCtrl::saveLogs("<add>$user->fname $user->lname</add> <b>logged in.</b>");
             return redirect('/admin');
 
         }else{
