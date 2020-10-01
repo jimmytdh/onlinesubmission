@@ -39,6 +39,13 @@ class HomeCtrl extends Controller
         ]);
     }
 
+    function dropzone()
+    {
+        return view('home.upload',[
+            'menu' => 'manage'
+        ]);
+    }
+
     public function items($id)
     {
         $items = Item::where('project_id', $id)

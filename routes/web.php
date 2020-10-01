@@ -21,6 +21,9 @@ Route::post('/track','HomeCtrl@submitTrack');
 Route::get('/track/{ref_no}','HomeCtrl@track');
 Route::get('/upcoming','HomeCtrl@upcoming');
 
+Route::get('/dropzone','HomeCtrl@dropzone');
+Route::post('/dropzone/upload','UploadCtrl@post_upload');
+
 Route::get('/logout','LoginCtrl@logoutUser');
 Route::get('/login','LoginCtrl@index')->middleware('isLogin');
 Route::post('/login/validate','LoginCtrl@validateLogin');
