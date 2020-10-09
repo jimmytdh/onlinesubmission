@@ -116,7 +116,7 @@ class HomeCtrl extends Controller
         }
         $bac_no = Project::find($id)->bac_no;
         LogCtrl::saveLogs("<b>$request->bidder</b> of <add>$request->company</add> submitted a bid for BAC No. <b>$bac_no</b> with <b>Ref. No. $ref_no</b>.");
-        return redirect('/track/' . $ref_no)->with('success','Bid successfully submitted!');
+        return redirect('/track/' . $ref_no);
 
     }
     public function submitBid2(Request $req, $id)
@@ -164,15 +164,24 @@ class HomeCtrl extends Controller
         $bid = Bid::find($req->bid_id);
         $dt = date('mdHis');
 
-        $financial_file = $req->file('financial_file');
-        $extension = $financial_file->getClientOriginalExtension();
-        $financial_file_name = $bid->ref_no . "_financial_modified$dt." . $extension;
-        Storage::disk('upload')->put($financial_file_name, File::get($financial_file));
+        if($req->hasFile('financial_file'))
+        {
+            $ext = $req->file('financial_file')->getClientOriginalExtension();
+            // filename to store
+            $financial_file_name = $bid->ref_no . "_financial_modified$dt." . $ext;
+            //upload file
+            $path = $req->file('financial_file')->storeAs('public/upload',$financial_file_name);
+        }
 
-        $technical_file = $req->file('technical_file');
-        $extension = $technical_file->getClientOriginalExtension();
-        $technical_file_name = $bid->ref_no . "_technical_modified$dt." . $extension;
-        Storage::disk('upload')->put($technical_file_name, File::get($technical_file));
+        if($req->hasFile('technical_file'))
+        {
+            //get extension
+            $ext = $req->file('technical_file')->getClientOriginalExtension();
+            // filename to store
+            $technical_file_name = $bid->ref_no . "_technical_modified$dt." . $ext;
+            //upload file
+            $path = $req->file('technical_file')->storeAs('public/upload',$technical_file_name);
+        }
 
         $bid = Bid::create([
             'project_id' => $bid->project_id,
