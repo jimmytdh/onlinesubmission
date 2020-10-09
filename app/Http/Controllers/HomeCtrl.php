@@ -66,11 +66,65 @@ class HomeCtrl extends Controller
         ]);
     }
 
-    public function submitBid(Request $req, $id)
+    public function submitBid(Request $request, $id)
+    {
+        $acronym = self::acronym($request->company);
+        $ref_no = $acronym . date('Ymd') . $id;
+        $this->validate($request, [
+            'items' => 'required',
+            'financial_file' => 'max:25000',
+            'technical_file' => 'max:25000',
+        ]);
+
+        if($request->hasFile('financial_file'))
+        {
+            $ext = $request->file('financial_file')->getClientOriginalExtension();
+            // filename to store
+            $financial_file_name = $ref_no."_".time().'.'.$ext;
+            //upload file
+            $path = $request->file('financial_file')->storeAs('public/upload',$financial_file_name);
+        }
+
+        if($request->hasFile('technical_file'))
+        {
+            //get extension
+            $ext = $request->file('technical_file')->getClientOriginalExtension();
+            // filename to store
+            $technical_file_name = $ref_no."_".time().'.'.$ext;
+            //upload file
+            $path = $request->file('technical_file')->storeAs('public/upload',$technical_file_name);
+        }
+
+        $bid = Bid::create([
+            'project_id' => $id,
+            'ref_no' => $ref_no,
+            'company' => $request->company,
+            'bidder' => $request->bidder,
+            'contact' => $request->contact,
+            'financial_file' => $financial_file_name,
+            'technical_file' => $technical_file_name,
+            'status' => 'original',
+            'final_status' => 'pending',
+            'remarks' => '',
+        ]);
+
+        foreach ($request->items as $i) {
+            BidItem::create([
+                'bid_id' => $bid->id,
+                'item_id' => $i
+            ]);
+        }
+        $bac_no = Project::find($id)->bac_no;
+        LogCtrl::saveLogs("<b>$request->bidder</b> of <add>$request->company</add> submitted a bid for BAC No. <b>$bac_no</b> with <b>Ref. No. $ref_no</b>.");
+        return redirect('/track/' . $ref_no)->with('success','Bid successfully submitted!');
+
+    }
+    public function submitBid2(Request $req, $id)
     {
         $acronym = self::acronym($req->company);
         $ref_no = $acronym . date('Ymd') . $id;
 
+        //handle file upload
         $financial_file = $req->file('financial_file');
         $extension = $financial_file->getClientOriginalExtension();
         $financial_file_name = $ref_no . "_financial." . $extension;

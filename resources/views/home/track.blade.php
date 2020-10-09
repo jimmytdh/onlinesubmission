@@ -32,6 +32,7 @@
             </h3>
         </div>
         <hr />
+        @include('inc.messages')
         <div class="row">
             <div class="col-sm-6">
                 <div>

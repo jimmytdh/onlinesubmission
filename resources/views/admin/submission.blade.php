@@ -81,14 +81,14 @@
 
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('/admin/report/submission/download/financial/'.$row->id) }}">
+                                    <a href="{{ asset('/storage/upload/'.$row->financial_file) }}">
                                     <span class="badge badge-pill badge-info p-2">
                                         <i class="fa fa-file-zip-o"></i> {{ strtoupper($row->status) }} COPY
                                     </span>
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('/admin/report/submission/download/technical/'.$row->id) }}">
+                                    <a href="{{ asset('/storage/upload/'.$row->technical_file) }}">
                                     <span class="badge badge-pill badge-warning p-2">
                                         <i class="fa fa-file-zip-o"></i> {{ strtoupper($row->status) }} COPY
                                     </span>

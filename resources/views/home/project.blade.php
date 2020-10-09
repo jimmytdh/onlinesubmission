@@ -70,6 +70,7 @@
                 </div>
             </div>
         @endif
+        @include('inc.messages')
         <div class="row">
 
 

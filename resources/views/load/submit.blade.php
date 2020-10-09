@@ -13,7 +13,7 @@
 <div class="form-group">
     <label>Financial Files</label>
     <div class="custom-file">
-        <input type="file" accept=".zip,.rar,.7zip" class="custom-file-input" id="financial_file" name="financial_file" required>
+        <input type="file" accept=".zip,.rar" class="custom-file-input" id="financial_file" name="financial_file" required>
         <label class="custom-file-label" for="customFile">Choose file...</label>
     </div>
 </div>
