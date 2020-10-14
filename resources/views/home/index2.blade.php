@@ -2,8 +2,6 @@
 
 @section('css')
     <link href="{{ url('/plugins/fullcalendar/lib/main.css') }}" rel="stylesheet" />
-    <link href="{{ url("/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css") }}" rel="stylesheet">
-    <link href="{{ url("/plugins/bootstrap-wysihtml5/additional.css") }}" rel="stylesheet">
     <style>
 
     </style>
@@ -12,17 +10,38 @@
 @section('body')
 
     <div class="col-md-12">
-{{--        <h2 class="text-success title-header">Welcome, <small class="text-muted">Guest</small></h2>--}}
         <div class="row">
-            <div class="col-md-8" style="font-size: 1.2em;">
-                <div class="p-2">
-                    {!! \App\Http\Controllers\HomeCtrl::getBulletin() !!}
+            <div class="col-md-8">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        @for($i=2;$i<=78;$i++)
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ $i }}"></li>
+                        @endfor
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block" src="{{ url('/slides/Slide1.JPG') }}" alt="" style="width: 100%;">
+                        </div>
+                        @for($i=1;$i<=78;$i++)
+                        <div class="carousel-item" style="background-size: cover;">
+                            <img src="{{ url('/slides/Slide'.$i.'.JPG') }}" alt="" style="width: 100%;">
+                        </div>
+                        @endfor
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-
             </div>
             <div class="col-md-4">
                 <div class="box box-info">
-                    <div class="box-header with-border">
+                    <div class="box-header">
                         <i class="fa fa-calendar"></i> Upcoming Events
                     </div>
                     <div class="box-body">

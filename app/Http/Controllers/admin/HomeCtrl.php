@@ -6,6 +6,7 @@ use App\Bid;
 use App\BidItem;
 use App\Logs;
 use App\Project;
+use App\SystemInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -55,5 +56,20 @@ class HomeCtrl extends Controller
         $end = Carbon::now()->endOfDay();
         $bid = Bid::whereBetween('created_at',[$start,$end])->count();
         return $bid;
+    }
+
+    static function getBulletin()
+    {
+        $r = SystemInfo::where('section','bulletin')->first()->value;
+        return $r;
+    }
+
+    public function updateBulletin(Request $req)
+    {
+        $bulletin = SystemInfo::where('section','bulletin')->first();
+        $bulletin->update([
+            'value' => $req->bulletin
+        ]);
+        return redirect()->back()->with('success','Bulletin successfully updated');
     }
 }

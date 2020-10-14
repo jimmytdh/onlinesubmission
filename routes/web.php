@@ -30,6 +30,7 @@ Route::post('/login/validate','LoginCtrl@validateLogin');
 
 Route::get('/admin','admin\HomeCtrl@index');
 Route::get('/admin/chart','admin\HomeCtrl@chart');
+Route::post('/admin/bulletin','admin\HomeCtrl@updateBulletin');
 
 
 //Submission Process

@@ -8,6 +8,7 @@ use App\Category;
 use App\Http\Controllers\admin\LogCtrl;
 use App\Item;
 use App\Project;
+use App\SystemInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -250,5 +251,11 @@ class HomeCtrl extends Controller
         return view('home.upcoming',[
             'menu' => 'upcoming'
         ]);
+    }
+
+    static function getBulletin()
+    {
+        $r = SystemInfo::where('section','bulletin')->first()->value;
+        return $r;
     }
 }

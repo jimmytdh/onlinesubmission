@@ -13,6 +13,7 @@
     <!-- Custom styles for this template -->
     <link href="{{ url('/css') }}/bootstrap.css" rel="stylesheet">
     <link href="{{ url('/css') }}/font-awesome.css" rel="stylesheet">
+    <link href="{{ url('/css') }}/glyphicon.css" rel="stylesheet">
     <link href="{{ url('/css') }}/loader.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('/plugins/bootstrap-editable/css/bootstrap-editable.css') }}">
     @yield('css')
