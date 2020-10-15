@@ -109,7 +109,12 @@
                                             ?>
                                             <ul>
                                                 @foreach($projects as $p)
-                                                    <li>{{ $p->bac_no }}</li>
+                                                    <li>
+                                                        {{ $p->bac_no }}
+                                                        @if($p->status=='open')
+                                                            <small class="text-success text-italic">(Open)</small>
+                                                        @endif
+                                                    </li>
                                                 @endforeach
                                                 <li>
                                                     <a href="{{ url('/admin/projects/list/'.$row->id) }}" style="border-bottom: 1px dotted #000;">

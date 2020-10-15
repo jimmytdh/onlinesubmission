@@ -72,29 +72,8 @@ class HomeCtrl extends Controller
         $acronym = self::acronym($request->company);
         $ref_no = $acronym . date('Ymd') . $id;
         $this->validate($request, [
-            'items' => 'required',
-            'financial_file' => 'max:25000',
-            'technical_file' => 'max:25000',
+            'items' => 'required'
         ]);
-
-        if($request->hasFile('financial_file'))
-        {
-            $ext = $request->file('financial_file')->getClientOriginalExtension();
-            // filename to store
-            $financial_file_name = $ref_no."_".time().'.'.$ext;
-            //upload file
-            $path = $request->file('financial_file')->storeAs('public/upload',$financial_file_name);
-        }
-
-        if($request->hasFile('technical_file'))
-        {
-            //get extension
-            $ext = $request->file('technical_file')->getClientOriginalExtension();
-            // filename to store
-            $technical_file_name = $ref_no."_".time().'.'.$ext;
-            //upload file
-            $path = $request->file('technical_file')->storeAs('public/upload',$technical_file_name);
-        }
 
         $bid = Bid::create([
             'project_id' => $id,
@@ -102,8 +81,6 @@ class HomeCtrl extends Controller
             'company' => $request->company,
             'bidder' => $request->bidder,
             'contact' => $request->contact,
-            'financial_file' => $financial_file_name,
-            'technical_file' => $technical_file_name,
             'status' => 'original',
             'final_status' => 'pending',
             'remarks' => '',
@@ -120,44 +97,29 @@ class HomeCtrl extends Controller
         return redirect('/track/' . $ref_no);
 
     }
-    public function submitBid2(Request $req, $id)
+
+    function upload(Request $request, $type, $bid_id)
     {
-        $acronym = self::acronym($req->company);
-        $ref_no = $acronym . date('Ymd') . $id;
-
-        //handle file upload
-        $financial_file = $req->file('financial_file');
-        $extension = $financial_file->getClientOriginalExtension();
-        $financial_file_name = $ref_no . "_financial." . $extension;
-        Storage::disk('upload')->put($financial_file_name, File::get($financial_file));
-
-        $technical_file = $req->file('technical_file');
-        $extension = $technical_file->getClientOriginalExtension();
-        $technical_file_name = $ref_no . "_technical." . $extension;
-        Storage::disk('upload')->put($technical_file_name, File::get($technical_file));
-
-        $bid = Bid::create([
-            'project_id' => $id,
-            'ref_no' => $ref_no,
-            'company' => $req->company,
-            'bidder' => $req->bidder,
-            'contact' => $req->contact,
-            'financial_file' => $financial_file_name,
-            'technical_file' => $technical_file_name,
-            'status' => 'original',
-            'final_status' => 'pending',
-            'remarks' => '',
+        $bid = Bid::find($bid_id);
+        $this->validate($request, [
+            'file' => 'max:25000'
         ]);
 
-        foreach ($req->items as $i) {
-            BidItem::create([
-                'bid_id' => $bid->id,
-                'item_id' => $i
-            ]);
+        if($request->hasFile('file'))
+        {
+            $ext = $request->file('file')->getClientOriginalExtension();
+            // filename to store
+            $file_name = $bid->ref_no."-$type-".time().'.'.$ext;
+            //upload file
+            $path = $request->file('file')->storeAs('public/upload',$file_name);
         }
-        $bac_no = Project::find($id)->bac_no;
-        LogCtrl::saveLogs("<b>$req->bidder</b> of <add>$req->company</add> submitted a bid for BAC No. <b>$bac_no</b> with <b>Ref. No. $ref_no</b>.");
-        return redirect('/track/' . $ref_no);
+        $bid->update([
+            $type."_file" => $file_name,
+            "date_".$type => Carbon::now()
+        ]);
+        $type = ucfirst($type);
+        LogCtrl::saveLogs("<b>$type file</b> uploaded to <add>Ref.No. $bid->ref_no</add>.");
+        return redirect()->back()->with('success','Successfully uploaded!');
     }
 
     function modify(Request $req)

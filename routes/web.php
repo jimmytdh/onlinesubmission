@@ -16,6 +16,7 @@ Route::get('/category/show/{id}','HomeCtrl@projects');
 Route::get('/project/items/{id}','HomeCtrl@items');
 Route::get('/submit/{id}','HomeCtrl@submit');
 Route::post('/submit/{id}','HomeCtrl@submitBid');
+Route::post('/upload/{type}/{bid_id}','HomeCtrl@upload');
 Route::post('/modify','HomeCtrl@modify');
 Route::post('/track','HomeCtrl@submitTrack');
 Route::get('/track/{ref_no}','HomeCtrl@track');

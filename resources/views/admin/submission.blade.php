@@ -81,18 +81,42 @@
 
                                 </td>
                                 <td class="text-center">
+                                    @if(isset($row->financial_file))
                                     <a href="{{ asset('/storage/upload/'.$row->financial_file) }}">
-                                    <span class="badge badge-pill badge-info p-2">
-                                        <i class="fa fa-file-zip-o"></i> {{ strtoupper($row->status) }} COPY
+                                    <span class="badge badge-pill badge-info p-2 m-1">
+                                        <i class="fa fa-download"></i> Original <br>
+                                        <small>{{ date('m/d/y h:i a',strtotime($row->date_financial)) }}</small>
                                     </span>
                                     </a>
+                                    @endif
+
+                                    @if(isset($row->mfinancial_file))
+                                        <a href="{{ asset('/storage/upload/'.$row->mfinancial_file) }}">
+                                            <span class="badge badge-pill badge-success p-2 m-1">
+                                                <i class="fa fa-download"></i> Modified <br>
+                                                <small>{{ date('m/d/y h:i a',strtotime($row->date_mfinancial)) }}</small>
+                                            </span>
+                                        </a>
+                                    @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ asset('/storage/upload/'.$row->technical_file) }}">
-                                    <span class="badge badge-pill badge-warning p-2">
-                                        <i class="fa fa-file-zip-o"></i> {{ strtoupper($row->status) }} COPY
+                                    @if(isset($row->technical_file))
+                                        <a href="{{ asset('/storage/upload/'.$row->technical_file) }}">
+                                    <span class="badge badge-pill badge-info p-2 m-1">
+                                        <i class="fa fa-download"></i> Original <br>
+                                        <small>{{ date('m/d/y h:i a',strtotime($row->date_technical)) }}</small>
                                     </span>
-                                    </a>
+                                        </a>
+                                    @endif
+
+                                    @if(isset($row->mtechnical_file))
+                                        <a href="{{ asset('/storage/upload/'.$row->mtechnical_file) }}">
+                                            <span class="badge badge-pill badge-success p-2 m-1">
+                                                <i class="fa fa-download"></i> Modified <br>
+                                                <small>{{ date('m/d/y h:i a',strtotime($row->date_mtechnical)) }}</small>
+                                            </span>
+                                        </a>
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     @if($holder!=$row->ref_no)
