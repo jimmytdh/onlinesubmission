@@ -19,7 +19,7 @@
         @endforeach
     @else
         <tr>
-            <td colspan="3">
+            <td colspan="4">
                 <div class="alert alert-warning">
                     <div class="text-center">
                         *** <i class="fa fa-exclamation-triangle"></i> No items available! ***
